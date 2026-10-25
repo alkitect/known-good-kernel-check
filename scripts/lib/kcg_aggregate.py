@@ -57,7 +57,7 @@ def main() -> int:
 
     report = {
         "schema_version": "1.0",
-        "suite_version": "0.3.0",
+        "suite_version": "0.4.0",
         "decision": decision,
         "exit_code": exit_code,
         "uname": args.uname,

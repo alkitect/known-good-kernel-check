@@ -326,7 +326,7 @@ def finish(result: str, detail: str):
         "load_recipe": extra["load_recipe"],
         "load_ran": load_ran,
         "source": source,
-        "suite_hint": "0.3.0",
+        "suite_hint": "0.4.0",
     }
     meta_path = evidence / f"soak-meta-{stamp}.json"
     meta_path.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")

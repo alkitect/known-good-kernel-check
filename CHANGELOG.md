@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 0.4.0
+
+Branding rename to **Known-good kernel check** (GitHub `known-good-kernel-check`).
+
+- Portal README: human keep / wait / go back wording; same-machine baseline story; login soak deferred
+- Display strings (banner, notify-send, helper descriptions) use the new product name
+- Suite still exits PROMOTE / HOLD / REJECT; `KCG_*` env and script names unchanged
+- History rewritten for the new slug; former repo `known-good-kernel-check` redirects on GitHub
+
 ## 0.3.0
 
 First public release of the baseline-relative known-good kernel check (suite 0.3).

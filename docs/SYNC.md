@@ -1,6 +1,13 @@
 # Private↔public product sync
 
-This extract is the published copy of a product also authored under a private topic tree. Shared product changes sync **here** on drift. Host campaign notes, host-named profiles, and monorepo-only adapters **never** sync.
+This extract is the published copy of **Known-good kernel check** (GitHub `alkitect/known-good-kernel-check`). A private topic tree remains the authoring home (separate path on purpose; dual-name is intentional). Shared product changes sync **here** on drift. Host campaign notes, host-named profiles, and monorepo-only adapters **never** sync.
+
+| Face | Value |
+|------|--------|
+| Display name | Known-good kernel check |
+| Public slug | `known-good-kernel-check` |
+| Former public slug | `known-good-kernel-check` (GitHub redirect) |
+| Engine prefix | `KCG_*` (unchanged) |
 
 ## Ownership map
 
@@ -27,7 +34,6 @@ This extract is the published copy of a product also authored under a private to
 5. Align version triad (`KCG_SUITE_VERSION` + CHANGELOG + PUBLISH `Current tag:`) when user-visible.
 6. Ship gate: tag with/before `main` + `gh release` + parent submodule pin (unless tip-only).
 7. Update topic TRACKING `last-public-sync` (tag or date).
-
 
 ## Campaigns layout (Plan 1c)
 

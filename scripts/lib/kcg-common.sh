@@ -3,7 +3,7 @@
 # Caller must set KCG_ROOT to this repo root before sourcing.
 # shellcheck shell=bash
 
-KCG_SUITE_VERSION="0.3.0"
+KCG_SUITE_VERSION="0.4.0"
 KCG_SCHEMA_VERSION="1.0"
 
 kcg_require_root() {

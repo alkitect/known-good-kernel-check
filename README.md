@@ -1,6 +1,6 @@
 # Known-good kernel check
 
-Decide PROMOTE, HOLD, or REJECT for a candidate kernel relative to a baseline you captured on this host.
+Compare a new Ubuntu kernel to a snapshot from a day this machine was fine, then keep it, wait, or go back.
 
 [Quick start](#quick-start) · [Releases](https://github.com/alkitect/known-good-kernel-check/releases) · [License](#license)
 
@@ -8,29 +8,27 @@ Latest release notes: [CHANGELOG.md](CHANGELOG.md) and [GitHub Releases](https:/
 
 ## What this does
 
-Stock “kernel health” tools score the running kernel in isolation. They do not know what was good on *your* machine last week.
+Ubuntu often offers a newer HWE or point-release kernel. Last time that happened, Wi-Fi, Bluetooth, GPU, or suspend may have gone weird on *your* box. Generic “kernel health” scores do not know what was good here last week.
 
-This gate binds a profile YAML to a captured baseline on a known-good `uname -r`, then re-checks inventory, PCI/module bind, journal signature packs, Wi-Fi/BT, optional adapters, and a short peak-rest soak. The suite exits **0 PROMOTE**, **1 HOLD**, or **2 REJECT**. HOLD with allowlisted warns can still be a promote GO after human review; REJECT means stop.
+This tool captures a baseline on a day the machine felt fine, then re-checks inventory, device bind, journal signatures, Wi-Fi/BT, optional adapters, and a short peak-rest soak against that snapshot. The suite exits **0**, **1**, or **2**. In plain words that is keep, wait, or go back (machine tokens: PROMOTE, HOLD, REJECT). HOLD with allowlisted warns can still be a keep after you read the report; REJECT means stop.
 
-Safe by default: you copy a profile, set `KCG_PROFILE`, capture a baseline, and run without unholding packages or changing GRUB until the promote checklist says GO.
+Safe by default: you copy a profile, set `KCG_PROFILE`, capture a baseline, and run without unholding packages or changing GRUB until your promote checklist says GO.
 
 ## Who this is for
 
-This is for Ubuntu (or similar) desktops where you care whether a *candidate* HWE or point-release kernel still matches a known-good baseline on the same box. You are willing to keep a recovery kernel installed and to run a short soak.
+This is for Ubuntu (or similar) desktops where you care whether a *candidate* kernel still matches a known-good baseline on the same machine. You keep a recovery kernel installed and can run a short soak.
 
-It is not a multi-host CI farm, an LTP replacement, or a generic “is my GPU fine” scoreboard. Suspend hard-gating and vendor-specific campaigns stay out of the default path.
+It is not a multi-host CI farm, an LTP replacement, or a generic “is my GPU fine” scoreboard. Suspend hard-gating and vendor-only campaigns stay out of the default path.
 
 ## Quick start
 
-By default the suite **resolves a campaign lane** from `uname -r` under `campaigns/<uname>/` (bootstrap from the example profile on first boot). Set `KCG_PROFILE` to override. Capture a baseline once per lane before login soak collects.
+Copy the example profile, set `kernel_version` to your current `uname -r`, export `KCG_PROFILE`, capture a baseline on the known-good kernel, then boot the candidate and run the suite. Login soak is optional later.
 
-Copy the example profile, set `kernel_version` to your current `uname -r`, export `KCG_PROFILE`, capture a baseline on the known-good kernel, then run the suite. Login soak is optional.
-
-Then: [Install](#install) → [1. Profile and baseline](#1-profile-and-baseline) → [2. Run the suite](#2-run-the-suite) → [3. Optional login soak](#3-optional-login-soak).
+Then: [Install](#install) → [1. Profile and baseline](#1-profile-and-baseline) → [2. Run the suite](#2-run-the-suite).
 
 ### Install
 
-Needs: bash, python3, PyYAML (`python3-yaml`), `journalctl`, and a graphical session if you enable GPU load soak.
+You need bash, python3, PyYAML (`python3-yaml`), `journalctl`, and a graphical session if you enable GPU load soak.
 
 Stable path: clone or download a release tag from [Releases](https://github.com/alkitect/known-good-kernel-check/releases). Tip of the default branch is fine for contributors.
 
@@ -58,35 +56,34 @@ That writes under `baselines/` and points `baselines/CURRENT` at the new snapsho
 
 ### 2. Run the suite
 
+Boot the candidate kernel (still with a recovery kernel available), then:
+
 ```bash
 ./scripts/capture-preflight.sh   # before acceptance runs
 ./scripts/run-compat-suite.sh --acceptance
-# expect exit 0 / 1 / 2 → PROMOTE / HOLD / REJECT
+# expect exit 0 / 1 / 2 → keep / wait / go back
 ```
 
-Self-test (must REJECT):
+<details>
+<summary>Optional: login soak and campaign lanes</summary>
 
-```bash
-./scripts/run-compat-suite.sh --skip-soak --self-test-reject
-# expect exit 2
-```
-
-### 3. Optional login soak
+By default the suite can resolve a campaign lane from `uname -r` under `campaigns/<uname>/` (bootstrap from the example profile on first boot). Set `KCG_PROFILE` to override.
 
 Background Tier D once per graphical login (does not change GRUB):
 
 ```bash
 export KCG_PROFILE="$HOME/kcg-profile.yaml"
-# optional: KCG_CANDIDATE_PROFILE=...
 ./scripts/enable-login-soak.sh
 ./scripts/verify-login-soak-hook.sh
 ```
 
 Disable with `./scripts/enable-login-soak.sh --disable`.
 
+</details>
+
 ## Check it works
 
-Success is a clean baseline capture, a suite decision you understand (PROMOTE or documented HOLD), and `--self-test-reject` exiting **2**. Optional: ledger summarize against your campaign tracking file after several login soaks.
+Success is a clean baseline capture, a suite decision you understand (keep, or a documented wait), and knowing exit **2** means go back. Optional: ledger summarize against your campaign tracking file after several login soaks.
 
 <details>
 <summary>Optional confirmation scripts</summary>
@@ -94,6 +91,7 @@ Success is a clean baseline capture, a suite decision you understand (PROMOTE or
 ```bash
 export KCG_PROFILE="$HOME/kcg-profile.yaml"
 ./scripts/run-compat-suite.sh --skip-soak --self-test-reject
+# expect exit 2
 ./scripts/ci-check.sh
 ```
 

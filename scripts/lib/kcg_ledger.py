@@ -578,7 +578,7 @@ def main() -> int:
     a.add_argument("--samples-path", default="")
     a.add_argument("--journal-hits", type=int, default=0)
     a.add_argument("--packs-matched", default="")
-    a.add_argument("--suite-version", default="0.3.0")
+    a.add_argument("--suite-version", default="0.4.0")
     a.add_argument("--load-recipe", default="")
     a.add_argument("--source", default="manual")
     a.add_argument("--detail", default="")

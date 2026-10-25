@@ -89,13 +89,17 @@ find scripts -type f -name '*.sh' -print0 | xargs -0 -r bash -n
 python3 -m py_compile scripts/lib/kcg_aggregate.py scripts/lib/kcg_journal.py \
   scripts/lib/kcg_ledger.py scripts/lib/kcg_progress.py scripts/lib/kcg_soak.py scripts/lib/kcg_lane.py
 
-# Suite version triad (pre-tag: First public tag string required)
-grep -qF 'KCG_SUITE_VERSION="0.3.0"' scripts/lib/kcg-common.sh \
-  || { echo "ci-check: KCG_SUITE_VERSION must be 0.3.0 for first ship" >&2; exit 1; }
+# Suite version triad (First public tag stays v0.3.0; Current / suite at 0.4.0)
+grep -qF 'KCG_SUITE_VERSION="0.4.0"' scripts/lib/kcg-common.sh \
+  || { echo "ci-check: KCG_SUITE_VERSION must be 0.4.0" >&2; exit 1; }
 grep -qF 'First public tag: v0.3.0' docs/PUBLISH.md \
   || { echo "ci-check: docs/PUBLISH.md must record First public tag: v0.3.0" >&2; exit 1; }
+grep -qF 'Current tag: v0.4.0' docs/PUBLISH.md \
+  || { echo "ci-check: docs/PUBLISH.md must record Current tag: v0.4.0" >&2; exit 1; }
 grep -qE '^## 0\.3\.0' CHANGELOG.md \
   || { echo "ci-check: CHANGELOG missing ## 0.3.0" >&2; exit 1; }
+grep -qE '^## 0\.4\.0' CHANGELOG.md \
+  || { echo "ci-check: CHANGELOG missing ## 0.4.0" >&2; exit 1; }
 
 # Required product files
 test -f profile/example-generic.yaml.example

@@ -111,7 +111,7 @@ synth = [
         "mode": "gate",
         "decision": "FAIL",
         "source": "login",
-        "suite_version": "0.3.0",
+        "suite_version": "0.4.0",
     },
 ]
 dk = local_day_key(_parse_ts("20261025T100000Z"))
@@ -127,7 +127,7 @@ synth.append(
         "mode": "gate",
         "decision": "PASS",
         "source": "login",
-        "suite_version": "0.3.0",
+        "suite_version": "0.4.0",
     }
 )
 d2 = daily_cap_decision(synth, uname_r="abi-x", per_day=1, day_key=dk)
@@ -141,7 +141,7 @@ synth_pass = [
         "mode": "gate",
         "decision": "PASS",
         "source": "login",
-        "suite_version": "0.3.0",
+        "suite_version": "0.4.0",
     }
 ]
 d3 = daily_cap_decision(synth_pass, uname_r="abi-x", per_day=1, day_key=dk)

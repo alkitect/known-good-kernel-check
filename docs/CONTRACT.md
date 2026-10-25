@@ -1,6 +1,6 @@
 # Known-good kernel check — contracts
 
-Schema versions today: profile + report `schema_version: "1.0"` · suite `suite_version: "0.3.0"`.
+Schema versions today: profile + report `schema_version: "1.0"` · suite `suite_version: "0.4.0"`.
 
 ## Vocabulary (soak)
 
