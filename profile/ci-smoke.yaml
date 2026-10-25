@@ -1,0 +1,67 @@
+# CI / smoke profile — load disabled; kernel_version rewritten at ci-check runtime.
+profile_id: ci-smoke
+schema_version: "1.0"
+hold_on_any_warn: true
+
+kernel_version: "CI_REWRITE_UNAME_R"
+
+promotion_allowed_warns: []
+
+signatures:
+  packs: []
+  type1_path: signatures/amdgpu-type1.txt
+
+reject_on_drift: []
+
+pci: []
+modules: []
+
+kfd:
+  require_dev_kfd: false
+
+plugins: []
+
+drm:
+  min_cards: 0
+
+wifi:
+  iface: ""
+  ethernet_fallback: true
+  required: false
+
+bluetooth:
+  required_hci: ""
+  required_state: UP
+  expected: []
+
+soak:
+  mode: gate
+  settle_seconds: 5
+  gap_seconds: 5
+  post_load_poll_seconds: 5
+  default_seconds: 30
+  load:
+    enabled: false
+    missing: warn
+    cycles: 1
+    window_seconds: 10
+    recipe: none
+    fail_on_signature_packs: []
+  samples:
+    enabled: false
+  cadence:
+    recommend: login
+    min_runs_for_pre_unhold: 1
+    min_pass_runs_for_pre_unhold: 1
+    max_runs_for_campaign: 7
+    max_login_soaks_per_day: 1  # with max_runs=7 ⇒ ≥7 local days
+    min_source_login: 0
+    min_calendar_days: 7
+    prefer_passes_for_confidence: 3
+    prefer_calendar_days: 2
+    high_passes_for_confidence: 5
+    high_calendar_days: 3
+
+inventory_keys:
+  - os_pretty
+  - lockdown

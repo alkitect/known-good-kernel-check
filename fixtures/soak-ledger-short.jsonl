@@ -1,0 +1,2 @@
+{"stamp": "20261021T060000Z","boot_id": "boot-soak-ledger-short.jsonl-0","uname_r": "6.8.0-ci-generic","profile": "ci-smoke.yaml","mode": "gate","duration_s": 400,"decision": "PASS","source": "login","suite_version": "0.3.0","journal_hits": 0,"packs_matched": []}
+{"stamp": "20261022T060000Z","boot_id": "boot-soak-ledger-short.jsonl-1","uname_r": "6.8.0-ci-generic","profile": "ci-smoke.yaml","mode": "gate","duration_s": 400,"decision": "PASS","source": "login","suite_version": "0.3.0","journal_hits": 0,"packs_matched": []}

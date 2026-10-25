@@ -1,0 +1,16 @@
+# Compat union of packs (fallback when profile uses type1_path only).
+# Prefer signatures.packs[] in profile for suite 0.2+.
+# Packs: packs/amdgpu-display-type1.txt + packs/amdgpu-reset-mode1.txt
+# Example AMDGPU Type I journal signatures (optional pack).
+# Bus-agnostic; one pattern per non-empty, non-# line.
+
+dml21_allocate
+flip_done
+validate context
+page allocation failure: order:9
+ring comp_.*timeout
+GPU reset begin
+VRAM is lost
+device wedged
+MODE1 reset
+amdgpu.*ERROR

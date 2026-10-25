@@ -1,0 +1,12 @@
+baselines/
+evidence/
+*.log
+__pycache__/
+*.pyc
+profile/local.yaml
+profile/*-candidate.yaml
+!profile/example-generic.yaml.example
+!profile/ci-smoke.yaml
+
+campaigns/*/baselines/
+campaigns/.staging-*/

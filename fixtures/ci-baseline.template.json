@@ -1,0 +1,16 @@
+{
+  "baseline_id": "baseline-ci-template",
+  "captured_at": "19700101T000000Z",
+  "kernel_version": "CI_REWRITE_UNAME_R",
+  "profile_path": "profile/ci-smoke.yaml",
+  "profile_hash": "CI_REWRITE_HASH",
+  "inventory": {
+    "os_pretty": "CI",
+    "hwe_holds": "",
+    "lockdown": "",
+    "board_name": "",
+    "linux_firmware_version": ""
+  },
+  "pci_bind": {},
+  "modules": {}
+}

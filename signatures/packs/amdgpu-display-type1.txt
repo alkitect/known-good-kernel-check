@@ -1,0 +1,8 @@
+# Pack: amdgpu-display-type1 — compositor / display hang class (Type I).
+# Bus-agnostic; no hardcoded PCI BDF. Matched case-insensitively via grep -E.
+# Example AMDGPU Type I journal signatures (optional pack).
+
+dml21_allocate
+flip_done
+validate context
+page allocation failure: order:9

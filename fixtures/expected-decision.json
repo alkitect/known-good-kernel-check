@@ -1,0 +1,12 @@
+{
+  "note": "Generic golden expectations for CI self-test-reject path.",
+  "acceptable_decisions": [
+    "PROMOTE",
+    "HOLD"
+  ],
+  "forbidden_decisions": [
+    "REJECT"
+  ],
+  "notes_hold_ok": "HOLD expected when hold_on_any_warn and any warn check fires",
+  "self_test_reject_must_decision": "REJECT"
+}

@@ -1,0 +1,24 @@
+[Unit]
+Description=Known-good kernel check — login soak (PBIT, once per graphical session)
+# After graphical session so the desktop is up; we still export DISPLAY ourselves
+After=graphical-session.target
+Wants=graphical-session.target
+ConditionPathExists=%h/.local/bin/kcg-login-soak
+
+[Service]
+Type=oneshot
+Restart=no
+# Session env is often missing in user units — set defaults for GNOME on :0
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-0
+Environment=XDG_RUNTIME_DIR=%t
+Environment=KCG_PROGRESS=plain
+# Give GNOME a moment after session-up before glxgears
+ExecStartPre=/bin/sleep 45
+ExecStart=%h/.local/bin/kcg-login-soak
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=6
+
+[Install]
+WantedBy=graphical-session.target

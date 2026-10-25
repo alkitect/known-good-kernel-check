@@ -1,0 +1,10 @@
+# Pack: amdgpu-reset-mode1 — GPU reset / VRAM-lost / compute-ring class.
+# Bus-agnostic; no hardcoded PCI BDF. Matched case-insensitively via grep -E.
+# Distinct from display Type I; both may appear on the same host.
+
+ring comp_.*timeout
+GPU reset begin
+VRAM is lost
+device wedged
+MODE1 reset
+amdgpu.*ERROR
